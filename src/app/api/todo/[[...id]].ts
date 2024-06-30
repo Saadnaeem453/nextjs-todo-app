@@ -76,11 +76,15 @@ export async function PATCH(request: Request, { params }: { params: { id?: strin
     await dbconnect();
     try {
         const { id } = params;
+        const { content } = await request.json();
+        if (!content || content.length === 0) {
+            return errorResponse("Todo not found")
+        }
         if (!id || id.length === 0) {
             return errorResponse("Todo not found")
         }
         const todoId = id[0]
-        const updateTodo = await TodoModel.findByIdAndUpdate(todoId);
+        const updateTodo = await TodoModel.findByIdAndUpdate(todoId, { content }, { new: true });
         if (!updateTodo) {
             return errorResponse("Error while Updating todo")
         }
