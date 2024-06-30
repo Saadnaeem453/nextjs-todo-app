@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 export type ConnectionObject = {
     isConnected?: number
 }
-const connection: ConnectionObject = ();
+const connection: ConnectionObject = {};
 
 
 async function DbConnect(): Promise<void> {
@@ -23,3 +23,4 @@ async function DbConnect(): Promise<void> {
     }
 
 }
+export default DbConnect;
