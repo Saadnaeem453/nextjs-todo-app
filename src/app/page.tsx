@@ -1,25 +1,38 @@
-import TodoList from '@/components/TodoList';
 
+import ThemeToggle from '@/components/Theme/ThemeComponent';
+import TodoList from '@/components/TodoList/TodoList';
+import { FetchTodos } from '@/services/TodoService';
+// import { useTheme } from "@/context/ThemeContext"
+interface Todo {
+  _id: string;
+  content: string;
+}
 
-export default function Home() {
+async function fetchInitialTodos(): Promise<Todo[]> {
+  try {
+    const todos = await FetchTodos();
+    console.log("todos", todos);
 
-
-
+    return todos;
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    return [];
+  }
+}
+export default async function Home() {
+  const todos = await fetchInitialTodos();
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen bg-gray-100">
-      {/* Top Menu Bar */}
-      <nav className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 p-6 shadow-md">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold">Todo App</div>
-        </div>
-      </nav>
+    <ThemeToggle>
+      <div>
+        <main className="flex flex-col items-center justify-between min-h-screen bg-slate-100 dark:bg-slate-800 ">
+          <h1 className="text-white text-3xl font-bold text-center mb-6">Todo List</h1>
+          <div className='w-8/12'>
+            <TodoList initialTodos={todos} />
+          </div>
 
-      {/* ToDo App Content */}
-      <div className="container mx-auto mt-10 p-6 bg-slate-400 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 className="text-black text-3xl font-bold text-center mb-6">Todo List</h1>
-        <TodoList />
 
+        </main>
       </div>
-    </main>
+    </ThemeToggle>
   );
 }

@@ -2,27 +2,16 @@ export const FetchTodos = async () => {
     try {
         console.log("Attempting to fetch todos...");
 
-        const response = await fetch("/api/todo", {
+        const response = await fetch("http://localhost:3000/api/todo", {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
 
         const data = await response.json();
-        console.log("Response data:", data);
 
-        // Debugging the structure of data
-        if (typeof data === 'object' && data !== null) {
-            console.log("Response is a valid object.");
-        } else {
-            console.log("Response is not a valid object.");
-        }
-
-        // Correct key name check
         if (data.success) {
-            console.log("Todos fetched successfully.");
             return data.data;
         } else {
-            console.log("Error in fetching todos:", data.message);
             throw new Error(data.message);
         }
     } catch (error) {
@@ -38,7 +27,6 @@ export const FetchTodoById = async (id: string) => {
         })
         const data = await response.json();
         if (data.success) {
-            console.log("retururning the data bhai");
 
             return data.data
         }
@@ -59,11 +47,9 @@ export const AddTodo = async (content: string) => {
             body: JSON.stringify({ content })
         });
 
-        // Log the status of the response
 
         const data = await response.json();
 
-        // Log the entire response data
 
         if (data.success) {
             return data.data?.content;
