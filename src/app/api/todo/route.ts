@@ -18,7 +18,6 @@ export async function POST(request: Request) {
         await newMessage.save();
         return jsonResponse({ data: newMessage, success: true, message: "Todo is post succuessfully" })
     } catch (error) {
-        console.log("error while saving todo", error);
 
         return errorResponse("Error while saving the todo")
     }
@@ -26,11 +25,9 @@ export async function POST(request: Request) {
 
 
 export async function GET() {
-    console.log(" in get api");
 
     await dbconnect();
     try {
-        console.log("in get try");
 
         const todos = await TodoModel.find({});
 
@@ -40,7 +37,6 @@ export async function GET() {
         }), { status: 200 })
     } catch (error) {
 
-        console.log("error while getting todos");
 
         return errorResponse("Error While getting todos", 400)
 

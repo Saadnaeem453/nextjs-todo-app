@@ -7,9 +7,6 @@ import { errorResponse, jsonResponse } from '@/helpers/responseHelper';
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     await dbconnect();
     const { id } = params;
-
-    console.log("params", params);
-
     if (!id) {
         return errorResponse("Id not found", 404);
     }
@@ -17,7 +14,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     try {
         const deleteTodo = await TodoModel.findByIdAndDelete(id);
         if (!deleteTodo) {
-            return errorResponse("Issue while deleting todo", 400);
+            return errorResponse("Not find id for deletion in database", 400);
         }
         return jsonResponse({ success: true, message: "Deleted successfully" });
     } catch (error) {
@@ -36,13 +33,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     try {
         const findTodo = await TodoModel.findById(id);
         if (!findTodo) {
-            return errorResponse("Id not found", 400);
+            return errorResponse("Id not found in database", 400);
         }
 
         return jsonResponse({ data: findTodo, success: true, message: "Deleted successfully" });
 
     } catch (error) {
-        console.log("Something went wrong while deleting..", error);
         return errorResponse("Something went wrong while deleting..", 500);
     }
 }
@@ -66,7 +62,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
         const updateTodo = await TodoModel.findByIdAndUpdate(id, { content }, { new: true });
         if (!updateTodo) {
-            return errorResponse("Error while updating todo", 400);
+            return errorResponse("Not Find id or not able to update", 400);
         }
         return jsonResponse({ success: true, message: "Updated successfully" });
     } catch (error) {
