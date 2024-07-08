@@ -1,8 +1,7 @@
-
 import ThemeToggle from '@/components/Theme/ThemeComponent';
 import TodoList from '@/components/TodoList/TodoList';
 import { FetchTodos } from '@/services/TodoService';
-// import { useTheme } from "@/context/ThemeContext"z
+
 interface Todo {
   _id: string;
   content: string;
@@ -11,28 +10,22 @@ interface Todo {
 async function fetchInitialTodos(): Promise<Todo[]> {
   try {
     const todos = await FetchTodos();
-    console.log("todos", todos);
-
     return todos;
   } catch (error) {
     console.error("Error fetching todos:", error);
     return [];
   }
 }
+
 export default async function Home() {
   const todos = await fetchInitialTodos();
   return (
     <ThemeToggle>
-      <div>
-        <main className="flex flex-col items-center justify-between min-h-screen bg-slate-100 dark:bg-slate-800 ">
-
-          <div className='mt-10 w-8/12'>
-            <TodoList initialTodos={todos} />
-          </div>
-
-
-        </main>
-      </div>
+      <main className="flex flex-col items-center justify-between min-h-screen bg-gray-100 dark:bg-slate-800">
+        <div className='w-8/12'>
+          <TodoList initialTodos={todos} />
+        </div>
+      </main>
     </ThemeToggle>
   );
 }

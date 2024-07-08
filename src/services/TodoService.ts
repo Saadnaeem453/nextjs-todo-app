@@ -3,6 +3,7 @@ export const FetchTodos = async () => {
         console.log("Attempting to fetch todos...");
 
         const response = await fetch("http://localhost:3000/api/todo", {
+            cache: 'no-cache',
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
@@ -38,6 +39,7 @@ export const FetchTodoById = async (id: string) => {
         })
         const data = await response.json();
         if (data.success) {
+            console.log("retururning the data bhai");
 
             return data.data
         }
@@ -58,9 +60,11 @@ export const AddTodo = async (content: string) => {
             body: JSON.stringify({ content })
         });
 
+        // Log the status of the response
 
         const data = await response.json();
 
+        // Log the entire response data
 
         if (data.success) {
             return data.data?.content;
@@ -102,4 +106,3 @@ export const UpdateTodo = async (id: string, content: string) => {
 
     }
 }
-
