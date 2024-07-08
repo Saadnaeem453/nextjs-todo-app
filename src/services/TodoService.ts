@@ -2,7 +2,7 @@ export const FetchTodos = async () => {
     try {
         console.log("Attempting to fetch todos...");
 
-        const response = await fetch("/api/todo", {
+        const response = await fetch("http://localhost:3000/api/todo", {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });

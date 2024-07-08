@@ -1,4 +1,5 @@
 "use client"
+
 import { AddTodo, DeleteTodo, FetchTodoById, FetchTodos, UpdateTodo } from '@/services/TodoService';
 import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa';
@@ -16,6 +17,14 @@ const TodoList: React.FC<Prop> = ({ initialTodos }) => {
     const [todos, setTodos] = useState<Todo[]>(initialTodos);
     const [newTodo, setNewTodo] = useState<string>('');
     const [editTodoId, setEditTodoId] = useState<string | null>(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchTodos();
+        };
+
+        fetchData();
+    }, []);
+
     const handleAddTodo = async () => {
         if (!newTodo || newTodo.trim().length === 0) {
             return;
