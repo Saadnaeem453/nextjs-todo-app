@@ -69,7 +69,7 @@ const TodoList: React.FC<Props> = ({ initialTodos }) => {
 
     return (
 
-        <div className="w-full mt-10 p-10 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <div className="min-h-screen w-full mt-10 p-10 bg-white dark:bg-gray-800 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Todo List</h1>
             </div>
