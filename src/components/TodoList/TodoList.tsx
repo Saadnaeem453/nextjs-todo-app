@@ -1,5 +1,6 @@
 "use client";
 
+import { todoSchema } from '@/Schema/TodoSchema';
 import { AddTodo, DeleteTodo, FetchTodoById, FetchTodos, UpdateTodo } from '@/services/TodoService';
 import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa';
@@ -17,8 +18,15 @@ const TodoList: React.FC<Props> = ({ initialTodos }) => {
     const [todos, setTodos] = useState<Todo[]>(initialTodos);
     const [newTodo, setNewTodo] = useState<string>('');
     const [editTodoId, setEditTodoId] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const handleAddTodo = async () => {
+        try {
+
+        } catch (error) {
+
+        }
+        todoSchema.parse({ content: newTodo });
         if (!newTodo.trim()) {
             return;
         }
@@ -41,6 +49,7 @@ const TodoList: React.FC<Props> = ({ initialTodos }) => {
                 console.error("Error adding todo:", error);
             }
         }
+        setError(null);
     };
 
     const handleDeleteTodo = async (id: string) => {
@@ -87,7 +96,13 @@ const TodoList: React.FC<Props> = ({ initialTodos }) => {
                 >
                     {editTodoId ? "Update Todo" : "Add Todo"}
                 </button>
+
             </div>
+            {error && (
+                <div className="text-red-500 mb-4">
+                    {error}
+                </div>
+            )}
             <ul className="space-y-4">
                 {todos?.map(todo => (
                     <li
