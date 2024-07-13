@@ -16,6 +16,7 @@ export default function Navbar() {
                         {theme === "dark" ? <FaSun /> : <FaMoon />}
                     </button>
                 </div>
+            </div>
         </nav>
     );
 }
