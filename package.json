@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.4",
+    "@next/swc-win32-x64-msvc": "^14.2.5",
     "mongoose": "^8.4.4",
     "next": "14.2.4",
     "react": "^18",

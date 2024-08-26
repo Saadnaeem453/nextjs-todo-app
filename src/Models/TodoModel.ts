@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose"
 
 
 export interface Todo extends Document {
-    content: string;
+    content: string,
     createdAt: Date,
 }
 const TodoSchema: Schema<Todo> = new Schema({

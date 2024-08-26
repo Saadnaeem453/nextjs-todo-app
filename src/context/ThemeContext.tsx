@@ -12,13 +12,14 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [theme, setTheme] = useState<Theme>("dark");
-
-    useEffect(() => {
-        const storedTheme = localStorage.getItem("Theme") as Theme | null;
-        if (storedTheme) {
-            setTheme(storedTheme);
-        }
-    }, []);
+    console.log(theme);
+    
+    // useEffect(() => {
+    //     const storedTheme = localStorage.getItem("Theme") as Theme | null;
+    //     if (storedTheme) {
+    //         setTheme(storedTheme);
+    //     }
+    // }, []);
 
     const toggleTheme = () => {
         setTheme((prevTheme) => {
@@ -30,7 +31,12 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <div className={theme} >
+            <div className="bg-white text-gray-700 dark:text-gray-200 dark:bg-black min-h-screen">
             {children}
+            </div>
+            </div>
+
         </ThemeContext.Provider>
     );
 };
