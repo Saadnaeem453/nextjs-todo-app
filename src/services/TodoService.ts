@@ -1,8 +1,10 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const FetchTodos = async () => {
     try {
         console.log("Attempting to fetch todos...");
 
-        const response = await fetch("http://localhost:3000/api/todo", {
+      
+        const response = await fetch(`${API_URL}/todo`, {
             cache: 'no-cache',
             method: "GET",
             headers: { "Content-Type": "application/json" }
